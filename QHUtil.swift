@@ -217,7 +217,7 @@ class QHUtil: NSObject {
             }
         }
     }
-
+    // MARK: 清除图片缓存
     class func clearImageCache(_ block: @escaping () -> Void) {
         ImageCache.default.clearDiskCache {
             block()
@@ -274,7 +274,7 @@ class QHUtil: NSObject {
         attriString.addAttribute(.foregroundColor, value: color, range: NSMakeRange(index, length))
         return attriString
     }
-
+    // MARK: 字符串转换成拼音
     class func stringToPinyin(string: String) -> String {
         var mutableString = NSMutableString(string: string)
         CFStringTransform(mutableString, nil, kCFStringTransformToLatin, false)
@@ -285,7 +285,10 @@ class QHUtil: NSObject {
     }
 
     // MARK: 图片处理
-
+    /*
+    压缩图片
+    toLength：字节数
+     */
     class func compressOriginalImage(image: UIImage, toLength: Int, completion: @escaping (Data) -> Void) {
         DispatchQueue.global().async {
             var scale = 0.9
@@ -303,7 +306,7 @@ class QHUtil: NSObject {
             }
         }
     }
-
+    //下载图片并保存
     class func downLoadImage(imageUrl: String, completion: ((String) -> Void)? = nil) {
         ImageDownloader.default.downloadImage(with: URL(string: imageUrl)!, options: nil) { result in
             switch result {
@@ -511,7 +514,7 @@ extension QHUtil {
         return regextestMoblie.evaluate(with: phone)
     }
 
-    // MARK: 是否合法密码
+    // MARK: 判断密码合法性
 
     class func isValid(Password password: String?) -> Bool {
         guard let _ = password else {
@@ -666,7 +669,7 @@ extension QHUtil {
         return true
     }
 
-    // MARK: 判断身份证号
+    // MARK: 判断银行卡号
 
     class func isValid(BankCard cardNumber: String?) -> Bool {
         var oddSum: Int = 0 // 奇数和
